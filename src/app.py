@@ -32,4 +32,5 @@ def root():
 
 # Include routers
 app.include_router(routers.activities.router)
+app.include_router(routers.announcements.router)
 app.include_router(routers.auth.router)
