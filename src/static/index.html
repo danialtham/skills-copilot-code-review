@@ -12,9 +12,6 @@
     />
   </head>
   <body>
-    <div class="announcement-banner">
-      📢 Activity registration is open until the end of the month. Don't lose your spot!
-    </div>
     <header>
       <h1>Mergington High School</h1>
       <h2>Extracurricular Activities</h2>
@@ -26,11 +23,19 @@
           </button>
           <div id="user-info" class="hidden">
             <span id="display-name"></span>
+            <button id="manage-announcements-button" class="icon-button secondary-icon-button" type="button">
+              <span class="user-icon" aria-hidden="true">📣</span>
+              <span>Manage Announcements</span>
+            </button>
             <button id="logout-button">Logout</button>
           </div>
         </div>
       </div>
     </header>
+
+    <section id="announcements-section" class="announcements-shell hidden" aria-live="polite">
+      <div id="announcement-banner-list" class="announcement-banner-list"></div>
+    </section>
 
     <main>
       <section id="activities-container">
@@ -134,6 +139,88 @@
           <button type="submit">Login</button>
         </form>
         <div id="login-message" class="hidden message"></div>
+      </div>
+    </div>
+
+    <div
+      id="announcement-manager-modal"
+      class="modal hidden announcement-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="announcement-manager-title"
+    >
+      <div class="modal-content announcement-manager-shell">
+        <button
+          type="button"
+          class="close-announcement-modal"
+          aria-label="Close announcement manager"
+        >
+          &times;
+        </button>
+        <div class="announcement-manager-topbar">
+          <p class="announcement-eyebrow">Internal Communication</p>
+          <h3 id="announcement-manager-title">Announcement Manager</h3>
+          <p class="announcement-manager-subtitle">
+            Publish time-bound updates for students and staff. Start date is optional,
+            expiration date is required.
+          </p>
+        </div>
+        <div class="announcement-manager-layout">
+          <section class="announcement-editor-panel" aria-labelledby="announcement-form-title">
+            <div class="announcement-editor-heading">
+              <h4 id="announcement-form-title">Create Announcement</h4>
+              <p>Announcements appear automatically when they are within their active date range.</p>
+            </div>
+            <form id="announcement-form" class="announcement-form">
+              <input type="hidden" id="announcement-id" value="" />
+              <div class="form-group">
+                <label for="announcement-message">Message</label>
+                <textarea
+                  id="announcement-message"
+                  rows="5"
+                  maxlength="280"
+                  required
+                  placeholder="Share an important update for students, families, or staff."
+                ></textarea>
+              </div>
+              <div class="announcement-date-grid">
+                <div class="form-group">
+                  <label for="announcement-start-date">Start Date</label>
+                  <input type="date" id="announcement-start-date" />
+                </div>
+                <div class="form-group">
+                  <label for="announcement-expiration-date">Expiration Date</label>
+                  <input type="date" id="announcement-expiration-date" required />
+                </div>
+              </div>
+              <p class="announcement-editor-hint">
+                Leave start date empty to show the announcement immediately.
+              </p>
+              <div class="announcement-form-actions">
+                <button id="announcement-submit-button" type="submit" class="primary-button">
+                  Publish Announcement
+                </button>
+                <button id="cancel-announcement-edit" type="button" class="ghost-button hidden">
+                  Cancel Edit
+                </button>
+              </div>
+            </form>
+          </section>
+          <section class="announcement-list-panel" aria-labelledby="announcement-list-title">
+            <div class="announcement-list-header">
+              <div>
+                <p class="announcement-eyebrow">Scheduled Content</p>
+                <h4 id="announcement-list-title">Existing Announcements</h4>
+              </div>
+            </div>
+            <div id="announcement-manager-message" class="hidden message"></div>
+            <div id="announcement-manager-empty" class="announcement-empty-state hidden">
+              <h5>No announcements yet</h5>
+              <p>Create one from the editor to highlight a key update on the homepage.</p>
+            </div>
+            <div id="announcement-manager-list" class="announcement-manager-list"></div>
+          </section>
+        </div>
       </div>
     </div>
 
